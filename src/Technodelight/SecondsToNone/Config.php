@@ -3,8 +3,10 @@
 namespace Technodelight\SecondsToNone;
 
 use \ArrayAccess;
+use \IteratorAggregate;
+use \ArrayIterator;
 
-class Config implements ArrayAccess
+class Config implements ArrayAccess, IteratorAggregate
 {
     private $map = [
         'days' => 86400,
@@ -20,7 +22,14 @@ class Config implements ArrayAccess
 
     public function __construct(array $map = [])
     {
-        $this->map = $map;
+        if ($map) {
+            $this->map = $map;
+        }
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->map);
     }
 
     public function offsetExists($offset)

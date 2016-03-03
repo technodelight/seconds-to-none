@@ -39,6 +39,7 @@ class SecondsToNone
         if ($def == $this->config->number(0)) {
             return 0;
         }
+
         foreach ($this->config->texts() as $unit) {
             $def = preg_replace('~[ ]+'.preg_quote($unit).'~', $unit, $def);
         }

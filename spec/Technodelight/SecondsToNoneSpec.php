@@ -22,4 +22,14 @@ class SecondsToNoneSpec extends ObjectBehavior
         $config->number(0)->shouldBeCalled()->willReturn('none');
         $this->humanToSeconds('none')->shouldReturn(0);
     }
+
+    function it_returns_string_representation()
+    {
+        $this->secondsToHuman(12345)->shouldReturn('3 hours 25 minutes 45 seconds');
+    }
+
+    function it_returns_number_from_human_text()
+    {
+        $this->humanToSeconds('3 hours 25 minutes 45 seconds')->shouldReturn(12345);
+    }
 }
