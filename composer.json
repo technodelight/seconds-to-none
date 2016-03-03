@@ -11,8 +11,8 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-4": {
-            "Technodelight": "src/"
+        "psr-0": {
+            "Technodelight\\": "src/"
         }
     },
     "require": {},

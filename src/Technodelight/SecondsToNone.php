@@ -2,30 +2,27 @@
 
 namespace Technodelight;
 
+use Technodelight\SecondsToNone\Config;
+
 class SecondsToNone
 {
-    const ZERO_SECONDS = 'none';
+    private $config;
 
-    private $secondsMap = [
-        'days' => 27000, // 7h 30m
-        'day' => 27000, // 7h 30m
-        'hours' => 3600,
-        'hour' => 3600,
-        'minutes' => 60,
-        'minute' => 60,
-        'seconds' => 1,
-        'second' => 1,
-    ];
+    public function __construct(Config $config = null)
+    {
+        $this->config = $config ?: new Config;
+    }
 
     public function secondsToHuman($seconds)
     {
-        if ($seconds === 0) {
-            return self::ZERO_SECONDS;
+        $seconds = (int) $seconds;
+        if ($seconds == 0) {
+            return $this->config->number(0);
         }
 
         $human = [];
-        foreach ($this->secondsMap as $stringRepresentation => $amount) {
-            if ($seconds < 1) {
+        foreach ($this->config as $stringRepresentation => $amount) {
+            if ($seconds < 1 || $amount < 1) {
                 break;
             }
             $value = floor($seconds / $amount);
@@ -39,10 +36,10 @@ class SecondsToNone
 
     public function humanToSeconds($def)
     {
-        if ($def == self::ZERO_SECONDS) {
+        if ($def == $this->config->number(0)) {
             return 0;
         }
-        foreach (array_keys($this->secondsMap) as $unit) {
+        foreach ($this->config->texts() as $unit) {
             $def = preg_replace('~[ ]+'.preg_quote($unit).'~', $unit, $def);
         }
 
@@ -51,7 +48,7 @@ class SecondsToNone
         foreach ($parts as $part) {
             if (preg_match('~([0-9]+)([a-z]+)~', trim($part), $matches)) {
                 list(,$number,$unit) = $matches;
-                $seconds+= isset($this->secondsMap[$unit]) ? ($number * $this->secondsMap[$unit]) : 0;
+                $seconds+= isset($this->config[$unit]) ? ($number * $this->config[$unit]) : 0;
             }
         }
         return $seconds;
