@@ -26,7 +26,7 @@ class SecondsToNone
                 break;
             }
             $value = floor($seconds / $amount);
-            $seconds-= ($value * $amount);
+            $seconds -= ($value * $amount);
             if ($value >= 1) {
                 $human[] = sprintf('%d %s', $value, $stringRepresentation);
             }
@@ -48,8 +48,8 @@ class SecondsToNone
         $seconds = 0;
         foreach ($parts as $part) {
             if (preg_match('~([0-9]+)([a-z]+)~', trim($part), $matches)) {
-                list(,$number,$unit) = $matches;
-                $seconds+= isset($this->config[$unit]) ? ($number * $this->config[$unit]) : 0;
+                list(,$number, $unit) = $matches;
+                $seconds += isset($this->config[$unit]) ? ($number * $this->config[$unit]) : 0;
             }
         }
         return $seconds;
