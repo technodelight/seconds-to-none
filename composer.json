@@ -1,6 +1,7 @@
 {
     "name": "technodelight/seconds-to-none",
     "description": "Seconds to human / human to seconds",
+    "license": "MIT",
     "authors": [
         {
             "name": "Zsolt Gal",
