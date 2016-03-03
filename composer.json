@@ -1,0 +1,23 @@
+{
+    "name": "technodelight/seconds-to-none",
+    "description": "Seconds to human / human to seconds",
+    "authors": [
+        {
+            "name": "Zsolt Gal",
+            "email": "zenc@zenc.hu"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "Technodelight": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpspec/phpspec": "^2.4",
+        "phpspec/nyan-formatters": "^1.0"
+    }
+}
