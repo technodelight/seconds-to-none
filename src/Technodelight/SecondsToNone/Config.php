@@ -57,6 +57,9 @@ class Config implements ArrayAccess, IteratorAggregate
         return isset($this->map[$text]) ? $this->map[$text] : null;
     }
 
+    /**
+     * @param integer $number
+     */
     public function number($number)
     {
         $index = array_search($number, $this->map);
