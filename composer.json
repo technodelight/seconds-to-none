@@ -16,7 +16,9 @@
             "Technodelight\\": "src/"
         }
     },
-    "require": {},
+    "require": {
+        "php": "^5.5"
+    },
     "require-dev": {
         "phpspec/phpspec": "^2.4",
         "phpspec/nyan-formatters": "^1.0"
