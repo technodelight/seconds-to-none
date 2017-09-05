@@ -42,18 +42,30 @@ class SecondsToNone
 
         $buffer = '';
         $seconds = 0;
-        for ($pos = 0; $pos < strlen($def); $pos++) {
+        $length = strlen($def);
+        for ($pos = 0; $pos < $length; $pos++) {
             $char = substr($def, $pos, 1);
             $nextChar = substr($def, $pos + 1, 1);
             $buffer.= $char;
 
             list($number, $unit) = sscanf($buffer, $this->config->pattern());
 
-            if (!is_null($number) && isset($this->config[$unit]) && (empty($nextChar) || $nextChar == ' ')) {
+            if ($this->isCurrentlyMatchingOnPattern($number, $unit, $nextChar)) {
                 $seconds += $number * $this->config[$unit];
                 $buffer = '';
             }
         }
         return $seconds;
+    }
+
+    /**
+     * @param int|null $number
+     * @param string $unit
+     * @param string $nextChar
+     * @return bool
+     */
+    private function isCurrentlyMatchingOnPattern($number, $unit, $nextChar)
+    {
+        return !is_null($number) && isset($this->config[$unit]) && (empty($nextChar) || $nextChar == ' ');
     }
 }
