@@ -28,7 +28,7 @@ class SecondsToNone
             $value = floor($seconds / $amount);
             $seconds -= ($value * $amount);
             if ($value >= 1) {
-                $human[] = sprintf('%d %s', $value, $stringRepresentation);
+                $human[] = sprintf($this->config->pattern(), $value, $stringRepresentation);
             }
         }
         return implode(' ', $human);

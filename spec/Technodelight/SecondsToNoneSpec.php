@@ -32,4 +32,18 @@ class SecondsToNoneSpec extends ObjectBehavior
     {
         $this->humanToSeconds('3 hours 25 minutes 45 seconds')->shouldReturn(12345);
     }
+
+    function it_can_use_custom_pattern()
+    {
+        $config = new Config([], '%d%s');
+        $this->beConstructedWith($config);
+        $this->secondsToHuman(12345)->shouldReturn('3hours 25minutes 45seconds');
+    }
+
+    function it_can_use_a_reversed_pattern()
+    {
+        $config = new Config([], '%2$s %1$d');
+        $this->beConstructedWith($config);
+        $this->secondsToHuman(12345)->shouldReturn('hours 3 minutes 25 seconds 45');
+    }
 }
