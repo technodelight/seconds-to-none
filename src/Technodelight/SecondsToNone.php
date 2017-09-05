@@ -40,13 +40,22 @@ class SecondsToNone
             return 0;
         }
 
+        return $this->collectSecondsFromText($def);
+    }
+
+    /**
+     * @param string $def
+     * @return int
+     */
+    private function collectSecondsFromText($def)
+    {
         $buffer = '';
         $seconds = 0;
         $length = strlen($def);
         for ($pos = 0; $pos < $length; $pos++) {
             $char = substr($def, $pos, 1);
             $nextChar = substr($def, $pos + 1, 1);
-            $buffer.= $char;
+            $buffer .= $char;
 
             list($number, $unit) = sscanf($buffer, $this->config->pattern());
 
@@ -55,6 +64,7 @@ class SecondsToNone
                 $buffer = '';
             }
         }
+
         return $seconds;
     }
 
