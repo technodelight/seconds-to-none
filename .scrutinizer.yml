@@ -68,4 +68,3 @@ coding_style:
 build_failure_conditions:
     - 'elements.rating(<= C).exists'
     - 'issues.new.exists'
-    - 'project.metric("scrutinizer.quality", < 9.99)'

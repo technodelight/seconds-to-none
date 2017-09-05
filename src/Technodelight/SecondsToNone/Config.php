@@ -8,6 +8,7 @@ use \ArrayIterator;
 
 class Config implements ArrayAccess, IteratorAggregate
 {
+    const PATTERN = '%d %s';
     private $map = [
         'days' => 86400,
         'day' => 86400,
@@ -19,12 +20,21 @@ class Config implements ArrayAccess, IteratorAggregate
         'second' => 1,
         'none' => 0,
     ];
+    /**
+     * @var string
+     */
+    private $pattern;
 
-    public function __construct(array $map = [])
+    /**
+     * @param array $map
+     * @param string $pattern
+     */
+    public function __construct(array $map = [], $pattern = self::PATTERN)
     {
-        if ($map) {
+        if (!empty($map)) {
             $this->map = $map;
         }
+        $this->pattern = $pattern;
     }
 
     public function getIterator()
@@ -50,6 +60,11 @@ class Config implements ArrayAccess, IteratorAggregate
     public function offsetUnset($offset)
     {
         // nada
+    }
+
+    public function pattern()
+    {
+        return $this->pattern;
     }
 
     public function text($text)
