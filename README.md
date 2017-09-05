@@ -24,7 +24,12 @@ $config = new Technodelight\SecondsToNone\Config(['h' => 3600, 'm' => 60, 's' =>
 // above secondsToHuman output with the following config:
 // 3h 25m 45s
 ```
-You can even swap the text with
+You can even swap the order by using a custom pattern:
+```
+$config = new Technodelight\SecondsToNone\Config(['h' => 3600, 'm' => 60, 's' => 1, 'none' => 0], '%2$ss%1$d');
+// above secondsToHuman output with the following config:
+// h3 m25 s45
+```
 
 This micro-library also comes with tests!
 
