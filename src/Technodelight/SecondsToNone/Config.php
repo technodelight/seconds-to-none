@@ -27,11 +27,11 @@ class Config implements ArrayAccess, IteratorAggregate
 
     /**
      * @param array $map
-     * @param bool $pattern
+     * @param string $pattern
      */
     public function __construct(array $map = [], $pattern = self::PATTERN)
     {
-        if ($map) {
+        if (!empty($map)) {
             $this->map = $map;
         }
         $this->pattern = $pattern;

@@ -40,16 +40,18 @@ class SecondsToNone
             return 0;
         }
 
-        foreach ($this->config->texts() as $unit) {
-            $def = preg_replace('~[ ]+'.preg_quote($unit).'~', $unit, $def);
-        }
-
-        $parts = explode(' ', $def);
+        $buffer = '';
         $seconds = 0;
-        foreach ($parts as $part) {
-            if (preg_match('~([0-9]+)([a-z]+)~', trim($part), $matches)) {
-                list(,$number, $unit) = $matches;
-                $seconds += isset($this->config[$unit]) ? ($number * $this->config[$unit]) : 0;
+        for ($pos = 0; $pos < strlen($def); $pos++) {
+            $char = substr($def, $pos, 1);
+            $nextChar = substr($def, $pos + 1, 1);
+            $buffer.= $char;
+
+            list($number, $unit) = sscanf($buffer, $this->config->pattern());
+
+            if (!is_null($number) && isset($this->config[$unit]) && (empty($nextChar) || $nextChar == ' ')) {
+                $seconds += $number * $this->config[$unit];
+                $buffer = '';
             }
         }
         return $seconds;

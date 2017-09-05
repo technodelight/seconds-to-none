@@ -3,7 +3,6 @@
 namespace spec\Technodelight;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 use Technodelight\SecondsToNone\Config;
 
@@ -38,6 +37,7 @@ class SecondsToNoneSpec extends ObjectBehavior
         $config = new Config([], '%d%s');
         $this->beConstructedWith($config);
         $this->secondsToHuman(12345)->shouldReturn('3hours 25minutes 45seconds');
+        $this->humanToSeconds('3hours 25minutes 45seconds')->shouldReturn(12345);
     }
 
     function it_can_use_a_reversed_pattern()
@@ -45,5 +45,6 @@ class SecondsToNoneSpec extends ObjectBehavior
         $config = new Config([], '%2$s %1$d');
         $this->beConstructedWith($config);
         $this->secondsToHuman(12345)->shouldReturn('hours 3 minutes 25 seconds 45');
+        $this->humanToSeconds('hours 3 minutes 25 seconds 45')->shouldReturn(12345);
     }
 }
