@@ -1,4 +1,6 @@
-extensions:
-    - PhpSpec\NyanFormattersExtension\Extension
-
-formatter.name: nyan.cat
+composer_suite_detection: false
+format.name: pretty
+suites:
+    default:
+        namespace: Technodelight
+        psr4_prefix: Technodelight

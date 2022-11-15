@@ -12,15 +12,19 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Technodelight\\": "src/"
         }
     },
+    "scripts": {
+        "test": [
+            "phpspec run"
+        ]
+    },
     "require": {
-        "php": "^5.5 || ^7.0"
+        "php": "^5.5 || ^7.0 || ^8.1"
     },
     "require-dev": {
-        "phpspec/phpspec": "^2.4",
-        "phpspec/nyan-formatters": "^1.0"
+        "phpspec/phpspec": "~7"
     }
 }
