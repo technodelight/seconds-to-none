@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Technodelight\SecondsToNone;
 
 use \ArrayAccess;
@@ -8,8 +10,8 @@ use \ArrayIterator;
 
 class Config implements ArrayAccess, IteratorAggregate
 {
-    const PATTERN = '%d %s';
-    private $map = [
+    public const PATTERN = '%d %s';
+    private array $map = [
         'days' => 86400,
         'day' => 86400,
         'hours' => 3600,
@@ -20,16 +22,9 @@ class Config implements ArrayAccess, IteratorAggregate
         'second' => 1,
         'none' => 0,
     ];
-    /**
-     * @var string
-     */
-    private $pattern;
+    private string $pattern;
 
-    /**
-     * @param array $map
-     * @param string $pattern
-     */
-    public function __construct(array $map = [], $pattern = self::PATTERN)
+    public function __construct(array $map = [], string $pattern = self::PATTERN)
     {
         if (!empty($map)) {
             $this->map = $map;
@@ -37,56 +32,53 @@ class Config implements ArrayAccess, IteratorAggregate
         $this->pattern = $pattern;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->map);
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return !empty($this->map[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->offsetExists($offset) ? $this->map[$offset] : null;
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         // nope
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         // nada
     }
 
-    public function pattern()
+    public function pattern(): string
     {
         return $this->pattern;
     }
 
-    public function text($text)
+    public function text($text): ?int
     {
-        return isset($this->map[$text]) ? $this->map[$text] : null;
+        return $this->map[$text] ?? null;
     }
 
-    /**
-     * @param integer $number
-     */
-    public function number($number)
+    public function number(int $number): string|null
     {
-        $index = array_search($number, $this->map);
+        $index = array_search($number, $this->map, true);
         return $index !== false ? $index : null;
     }
 
-    public function texts()
+    public function texts(): array
     {
         return array_keys($this->map);
     }
 
-    public function numbers()
+    public function numbers(): array
     {
         return array_values($this->map);
     }
